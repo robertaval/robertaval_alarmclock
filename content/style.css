@@ -1,0 +1,150 @@
+* {box-sizing: border-box;}
+a {text-decoration: none;}
+
+body {
+  background-color: #c0c0c0;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 4vw;
+}
+
+#container {
+  background-color: #99bbff;
+  width: 70vw;
+  margin: 5vw auto 20vw;
+  box-shadow: 1vw 1vw 0.5vw #888888;
+}
+
+#topbar {padding: 3vw 3vw 3vw 6vw;}
+p {margin: 0px;}
+
+.button {
+  display: inline-block;
+  float: right;
+  margin: 2vw 2vw 0vw 0vw;
+  padding: 3vw 4vw;
+  box-shadow: 3px 3px 0px #888888;
+  background: #9999ff;
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+  }
+#current_time {font-size: 300%;}
+#player_status, #extra_info {font-size: 70%;}
+input[type=checkbox], input[type=color] {display: none;}
+:checked + .check_box {font-weight: bold;}
+
+
+div.alarm {
+  background-color: #ffffff;
+  position: relative;
+  padding: 1vw 1vw 3vw 6vw;
+  border-bottom: thin solid #999999;
+}
+
+.chk_active:before {
+    float: right;
+    margin: 2vw 2vw 0vw 0vw;
+    font-family:'FontAwesome';
+    content: "\f1f7";
+    font-size: 200%;
+    font-weight: bold;
+    }
+
+:checked + .chk_active:before {
+    content: "\f0a2";
+    }
+
+.editing_alarm:before {
+    position: absolute;
+    bottom: 1vw;
+    right: 3vw;
+    font-family:'FontAwesome';
+    content: "\f078";
+    }
+
+.editing_alarm_chk:checked + .editing_alarm:before {
+      content: "\f077";
+    }
+
+.alarm_icons:before {
+    float: left;
+    margin-left: -5vw;
+    font-family:'FontAwesome';
+    font-size: 100%;
+    font-weight: bold;
+    color: #000000;
+    }
+
+.chk_repeating:before {content: "\f01e";}
+
+.rep_checkbox:not(:checked) + .chk_repeating {
+    color: #777777;
+    }
+.button_delete:before {
+  content: "\f014";
+  font-size: 150%;
+  }
+
+div.days_span {
+  display: table-row;
+  width: 35vw;
+  table-layout: fixed;
+  /* For cells of equal size */
+}
+
+.days_span span {
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  }
+
+input[type="date"] {font-size:100%;}
+input[type="text"] {font-size:70%;}
+
+input[type="text"], input[type="time"], input[type="date"] {
+  width: 50vw;
+  margin: 0px;
+  padding: 0px;
+  font-family: Tahoma, Geneva, sans-serif;
+  height: 1.3em;
+  background: #ffffff;
+  appearance: none;
+  box-shadow: none;
+  outline: none;
+  border-style: none;
+}
+
+.color_button div {
+  margin: 3vw auto 0;
+  width: 20vw;
+  height: 5vw;
+  background-color: #ff0000;
+  text-align: center;
+  color:#ffffff;
+  }
+
+:focus {outline: none;}
+.time {font-size: 200%;}
+.static_subscript {font-size:70%;}
+
+.rep_checkbox:checked ~ .date_span {display: none;}
+.rep_checkbox:not(:checked) ~ .days_span {display: none;}
+
+.editing_alarm_chk:checked ~ .alarm_static_frame {display: none;}
+.editing_alarm_chk:not(:checked) ~ .alarm_edit_frame {display: none;}
+
+
+.button_add {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    font-size:200%;
+    line-height:10vw;
+    text-align:center;
+    background:#FF0000;
+    box-shadow: 1vw 1vw 1vw #888888;
+    position: fixed;
+    bottom: 1vw;
+    right:15vw;
+    }
+.button_add a {color: #ffffff;}
