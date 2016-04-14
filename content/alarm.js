@@ -56,6 +56,8 @@ function gatherFormData(formID){
             case "name":
             case "time":
             case "date":
+            case "color":
+            case "onset":
               if (element.value.length >0) {params += '&' + element.name +
                                             '=' + element.value ;};
               break;
@@ -104,6 +106,13 @@ function httpGet(url, target) {
         };
     xhttp.send();
 }
+
+
+
+
+function timerval(id, time){
+    // update the value of the sunrise timer
+    document.getElementById(id).innerHTML = time;}
 
 
 /* Refresh the topbar every 10 seconds */

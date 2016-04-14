@@ -56,14 +56,24 @@
               </span>
         </div>
     <!-- a few other buttons -->
+
         <div class="buttons_span">
+    
+          <div class="color_section">
+            <span class="color_picker">
+            <input name="color" type="hidden" id="{{alarm_id}}_color" value="{{color}}">
+            <button class="jscolor {valueElement: '{{alarm_id}}_color'}">color</button>
+             </span>
+             <span class="sunrise_timer	">sunrise
+               <input type="range" name="onset" min=0 max=600 step=10 value={{onset}} onchange="timerval('{{alarm_id}}_sunrise_timer', this.value)">
+               <span class="timer_val" id="{{alarm_id}}_sunrise_timer">{{onset}}</span></span>               
+             </div> <!--color_section-->
+         </div> <!--button_span-->
+        </form>
+        <div>
           <a href="#" onclick="action('delete', '{{alarm_id}}')">
             <span class="button_delete alarm_icons"></span></a>
-
-           <label class="color_button">
-             <div><input type="color" name="color" value="#{{color}}">
-             <span>color</span></div>
-           </label>
+        
         </div>
-        </form>
-      </div>
+      </div> <!--alarm edit frame -->
+

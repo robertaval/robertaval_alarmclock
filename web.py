@@ -47,6 +47,7 @@ def render_alarm(alarm):
                           SU        = alarm.chkbox['SU'],
                           date      = formdate,
                           color     = alarm.color,
+                          onset     = alarm.color_onset,
                           active    = 'checked' if alarm.active else '',
                           repeating = 'checked' if alarm.repeating else '',
                           min_date  = mindate)
@@ -187,8 +188,8 @@ def update_alarm_web(params):
             alarm_vars['days'] = tuple(params_days)
         elif k == 'color':
             alarm_vars['color'] = params['color']
-        elif k=='color_onset':
-            alarm_vars['color_onset'] = int(params['color_onset'])
+        elif k=='onset':
+            alarm_vars['color_onset'] = int(params['onset'])
         elif k == 'active':
             alarm_vars['active'] = params['active'].lower() in ('true','t','1')
         elif k == 'repeating':

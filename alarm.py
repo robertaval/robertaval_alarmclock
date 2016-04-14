@@ -106,7 +106,12 @@ class alarmset:
             else:
                 date = None
             active = file.getboolean(section, 'active')
-            self.add(alarm(section, time, days, date, path, active))
+            color_onset = file.getint(section, 'color_onset')
+            duration = file.getint(section, 'duration')
+            color = file.get(section, 'color')
+            #bulb_ip = file.get(section, 'bulb_ip')
+            
+            self.add(alarm(section, time, days, date, path, active, color_onset, duration, color))
 
 
     def save_alarms (self, filename):
@@ -122,6 +127,10 @@ class alarmset:
             active = 'True' if a.active else 'False'
             file.set(a.name,'active', active)
             file.set(a.name,'path', a.path)
+            file.set(a.name,'color_onset', str(a.color_onset))
+            file.set(a.name,'duration', str(a.duration))
+            file.set(a.name,'color', a.color)
+            file.set(a.name,'bulb_ip', a.bulb_ip)
 
 
         with open(filename,'w', encoding='utf-8') as fileout:
@@ -156,7 +165,7 @@ class alarm:
         self.active =         active
         self.path =           path +'/'if path[-1] != '/' else path # add a / to the end of the path if not present
         self.color_onset =    color_onset # onset is the time before the alarm for sunrise
-        self.duration = duration # duration of the alarm. -1 is manual off only
+        self.duration =       duration # duration of the alarm. -1 is manual off only
         self.color =          color
         self.bulb_ip =        '192.168.1.162'
 

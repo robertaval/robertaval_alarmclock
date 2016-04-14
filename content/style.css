@@ -14,7 +14,7 @@ body {
   box-shadow: 1vw 1vw 0.5vw #888888;
 }
 
-#topbar {padding: 3vw 3vw 3vw 6vw;}
+#topbar {padding: 3vw 3vw 4vw 9vw;}
 p {margin: 0px;}
 
 .button {
@@ -37,13 +37,13 @@ input[type=checkbox], input[type=color] {display: none;}
 div.alarm {
   background-color: #ffffff;
   position: relative;
-  padding: 1vw 1vw 3vw 6vw;
+  padding: 1vw 1vw 4vw 9vw;
   border-bottom: thin solid #999999;
 }
 
 .chk_active:before {
     float: right;
-    margin: 2vw 2vw 0vw 0vw;
+    margin: 2vw 2vw 0vw 0vw; 
     font-family:'FontAwesome';
     content: "\f1f7";
     font-size: 200%;
@@ -68,7 +68,7 @@ div.alarm {
 
 .alarm_icons:before {
     float: left;
-    margin-left: -5vw;
+    margin-left: -7vw;
     font-family:'FontAwesome';
     font-size: 100%;
     font-weight: bold;
@@ -81,8 +81,10 @@ div.alarm {
     color: #777777;
     }
 .button_delete:before {
+  position: absolute;
   content: "\f014";
   font-size: 150%;
+  bottom: 1vw;
   }
 
 div.days_span {
@@ -92,16 +94,16 @@ div.days_span {
   /* For cells of equal size */
 }
 
-.days_span span {
+.days_span {
   display: inline-block;
   text-align: center;
-  margin: auto;
+  margin: 0 auto;
   }
 
 input[type="date"] {font-size:100%;}
 input[type="text"] {font-size:70%;}
 
-input[type="text"], input[type="time"], input[type="date"] {
+input[type="text"], input[type="time"], input[type="date"] input[type="range"] {
   width: 50vw;
   margin: 0px;
   padding: 0px;
@@ -114,13 +116,19 @@ input[type="text"], input[type="time"], input[type="date"] {
   border-style: none;
 }
 
-.color_button div {
-  margin: 3vw auto 0;
-  width: 20vw;
+input[type="range"] {
+  width: 10vw;
+  height: 50%;}
+
+.color_section {
   height: 5vw;
-  background-color: #ff0000;
-  text-align: center;
-  color:#ffffff;
+  font-size: 70%;
+  }
+
+.jscolor {
+  border: none;
+  width: 10vw;
+  font-size:70%;
   }
 
 :focus {outline: none;}
