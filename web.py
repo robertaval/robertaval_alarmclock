@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import alarm
 import time
 import datetime
@@ -82,6 +84,7 @@ def parse_api_string(parameters):
        time=hh:mm
        name=<name> -> updating name will update alarm_id. It must be unique
        days=MO,TU,WE,TH,FR,SA,SU -> one or more of the previous, comma seperated
+       volume=[0..100] -> the volume setting of the alarm (100 is max)  
        color=rrggbb -> where rrggbb is the hexcolorcode for the color
        color_onset=<secs>  -> seconds before the daylight effect starts
        date=YYYY-MM-DD
@@ -186,6 +189,8 @@ def update_alarm_web(params):
                 if d not in dayslst:
                     params_days.remove(d)
             alarm_vars['days'] = tuple(params_days)
+        elif k== 'volume':
+            alarm_vars['volume'] = int(params['volume'])
         elif k == 'color':
             alarm_vars['color'] = params['color']
         elif k=='onset':

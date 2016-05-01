@@ -4,7 +4,7 @@ import time
 import ledenet_api
 import webcolors
 import os
-from mplayer import Player
+import mplayer.Player
 
 class alarmset:
 
@@ -102,7 +102,6 @@ class alarmset:
 
             days = tuple(file.get(section, 'days').replace(' ', '').upper().split(','))
             path = file.get(section, 'path')
-            volume = file.getint(section, 'volume')
             if file.has_option(section, 'date'):
                 date = datetime.datetime.strptime(file.get(section, 'date'),'%d-%b-%Y').date()
             else:
@@ -113,7 +112,7 @@ class alarmset:
             color = file.get(section, 'color')
             #bulb_ip = file.get(section, 'bulb_ip')
             
-            self.add(alarm(section, time, days, date, path, volume, active, color_onset, duration, color))
+            self.add(alarm(section, time, days, date, path, active, color_onset, duration, color))
 
 
     def save_alarms (self, filename):
@@ -129,7 +128,6 @@ class alarmset:
             active = 'True' if a.active else 'False'
             file.set(a.name,'active', active)
             file.set(a.name,'path', a.path)
-            file.set(a.name,'volume', str(a.volume))
             file.set(a.name,'color_onset', str(a.color_onset))
             file.set(a.name,'duration', str(a.duration))
             file.set(a.name,'color', a.color)
@@ -151,7 +149,7 @@ class alarm:
     dowlist = 'MO,TU,WE,TH,FR,SA,SU'.split(',')
     dow = {d:i for i,d in enumerate(dowlist)}
     def  __init__(self, name, time, days = ('MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'), date = None, path = './playlist/',
-                  volume = 40, active = True, color_onset = 300, duration = -1, color = 'FFFFFF' ):
+                  active = True, color_onset = 300, duration = -1, color = 'FFFFFF' ):
         '''define an alarm. at the time of the alarm, a media file is played
         required parameters is time (datetime.time)
         optional parameters days, the days of the week for the alarm.
@@ -166,12 +164,13 @@ class alarm:
         self.date =           date
         self.repeating =      True if date == None else False
         self.active =         active
-        self.volume =         volume
         self.path =           path +'/'if path[-1] != '/' else path # add a / to the end of the path if not present
         self.color_onset =    color_onset # onset is the time before the alarm for sunrise
         self.duration =       duration # duration of the alarm. -1 is manual off only
         self.color =          color
         self.bulb_ip =        '192.168.1.162'
+
+
 
         # these variables are not passed when initiating the alarm, but are used for housekeeping
 
@@ -179,6 +178,7 @@ class alarm:
         # used by the module web.py to format the ceckboxes for the recurrence
         self.playing =        False
         self.track =          None
+        self.blocking =       False # blocking is used to check if the player can
 
 
     def update_alarm(self, **kwargs):
@@ -191,7 +191,6 @@ class alarm:
         self.date = kwargs.get('date', self.date)
         self.repeating = kwargs.get('repeating', self.repeating)
         self.path = kwargs.get('path', self.path)
-        self.volume = kwargs.get('volume', self.volume)
         self.active = kwargs.get ('active', self.active)
         self.color = kwargs.get('color', self.color)
         self.color_onset = kwargs.get('color_onset', self.color_onset)
@@ -201,9 +200,7 @@ class alarm:
         if self.path[-1] != '/':
             self.path += '/'
         self.chkbox =    {d:b for b,d in zip(('checked' if t in self.days else '' for t in self.dowlist),self.dowlist)}
-        
-        self.volume = max(min(100, self.volume), 0) # volume should be between 0 and 100
-         
+
 
     def next_alarm(self, now):
         '''alarm.next(now) returns the next occurence of an alarm after the input
@@ -247,27 +244,28 @@ class alarm:
             path = self.path
         return sorted(list(filter(lambda x: x.endswith(ext), os.listdir(path))))
 
+
     def play(self):
+    playlist = self.generate_playlist()
+    self.player = mplayer.Player()
+    self.playing = True
+    print ('initiating player')
+    while len(playlist) >0: # loop through the playlist
+        track = playlist.pop(0)
+        player.loadfile(path+track)
+        # wait for mplayer to initialise
+        i=0
+        while player.time_pos == None: 
+            time.sleep(0.1)
+            print ('loading', path+track, i, end='\r')
+            i+=1
+        print()
+        # wait while song is playing and and not interrupted
+        while self.player_active():
+            print (path+track, player.time_pos, end='\r')
+            time.sleep(1)
 
-        playlist = self.generate_playlist()
-        path = self.path
-        self.player = Player()
-        self.playing = True
-        while len(playlist) >0:
-            track = playlist.pop(0)
-            self.player.loadfile(path+track)
-            i=0
-            while self.player.time_pos == None:
-                time.sleep(0.1)
-                print ('loading', path+track, i, end='\r')
-                i+=1
-            print()
-            self.player.volume = self.volume
-            while self.player_active():
-                print (path+track, self.player.time_pos, end='\r')
-                time.sleep(1)
-        self.stop()
-
+    self.stop()
 
 
     def wakeup_light(self):

@@ -194,7 +194,9 @@ class bulb():
 
     def gradual(self,red=255,green=255,blue=255,duration=300, increase = True):
 
-        step = 1/duration
+        step = 1
+        if duration >0: 
+            step = 1/duration
         if increase:
             self.set_color(0,0,0)
             i = 0
