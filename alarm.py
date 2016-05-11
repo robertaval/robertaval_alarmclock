@@ -89,8 +89,10 @@ class alarmset:
         '''
         # first open the file alarms using the module configparser
         # and collects a set of calendar recurrences
+
         file = configparser.ConfigParser()
         file.read(filename)
+
 
         # now loop through each section and determine what the next alarm is based
         # on the recurrences set (if any). Note that a recurrence set in the past
@@ -135,9 +137,9 @@ class alarmset:
             file.set(a.name,'color', a.color)
             file.set(a.name,'bulb_ip', a.bulb_ip)
 
-
         with open(filename,'w', encoding='utf-8') as fileout:
             file.write(fileout)
+
 
     def stop(self):
         for alarm in self:
