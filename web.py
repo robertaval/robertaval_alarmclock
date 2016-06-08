@@ -65,7 +65,6 @@ def render_page(alarms):
         alarms_content += '</div>'
     return template(alarm_page, topbar = top_bar, alarms = alarms_content)
 
-
 @route('/alarm')
 def page_get():
     print ('returning main page')
@@ -189,11 +188,11 @@ def update_alarm_web(params):
                 if d not in dayslst:
                     params_days.remove(d)
             alarm_vars['days'] = tuple(params_days)
-        elif k== 'volume':
+        elif k == 'volume':
             alarm_vars['volume'] = int(params['volume'])
         elif k == 'color':
             alarm_vars['color'] = params['color']
-        elif k=='onset':
+        elif k =='onset':
             alarm_vars['color_onset'] = int(params['onset'])
         elif k == 'active':
             alarm_vars['active'] = params['active'].lower() in ('true','t','1')
