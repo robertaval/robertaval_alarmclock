@@ -141,12 +141,14 @@ class bulb():
         # typical response:
         #pos  0  1  2  3  4  5  6  7  8  9 10
         #    66 01 24 39 21 0a ff 00 00 01 99
-        #     |     |           |  |  |  |  |
-        #     |     |           |  |  |  |  checksum
-        #     |     |           |  |  |  warmwhite
-        #     |     |           |  |  blue
-        #     |     |           |  green
-        #     |     |           red
+        #     |     |  |     |  |  |  |  |  |
+        #     |     |  |     |  |  |  |  |  |  checksum
+        #     |     |  |     |  |  |  |  warmwhite
+        #     |     |  |     |  |  |  blue
+        #     |     |  |     |  |  green
+        #     |     |  |     |  red
+        #     |     |  |     speed: 0f = highest f0 is lowest
+        #     |     |  preset pattern             
         #     |     off(23)/on(24)
         #     |
         #     |
