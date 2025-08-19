@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alarm Test</title>
-    <link rel="stylesheet" href="content/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alarm Page</title>
+
+<!-- Load FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-o5C7d2r1Q3s6N3yjS1evcH/XOPlLqL+q8E9E9r+1pT2wEBf5PZ4YrU4XHkP6gjr3P8mzYVY3uP1v1JqG6VdQ3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Your existing CSS -->
+<link rel="stylesheet" href="content/style.css">
 </head>
 <body>
-    <div id="container">
-        <div id="topbar">
-            <a href="#" onclick="alert('STOP clicked!')" class="button"><span>STOP</span></a>
-            <p id="current_time">12:34 PM</p>
-            <p id="extra_info">Next alarm: 7:00 AM</p>
-        </div>
+<div id="container">
+    <div id="topbar">
+        <a href="#" onclick="action('stop')" class="button"><span>STOP</span></a>
+        <p id="current_time"></p>
+        <p id="extra_info"></p>
     </div>
+
+    <div class="alarm">
+        <input type="checkbox" class="editing_alarm_chk" id="alarm1">
+        <label for="alarm1" class="editing_alarm">Morning Alarm</label>
+        <span class="alarm_icons"></span>
+    </div>
+
+    <!-- Add more alarms here as needed -->
+</div>
+
+<a href="#" class="button_add"><span>+</span></a>
+
+<script>
+    // Show current time
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        document.getElementById('current_time').textContent = timeString;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Extra info for testing
+    document.getElementById('extra_info').textContent = "No active alarms";
+
+    // Placeholder function for stop button
+    function action(cmd) {
+        alert("Command: " + cmd);
+    }
+</script>
 </body>
 </html>
