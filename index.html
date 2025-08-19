@@ -8,10 +8,11 @@
 <!-- Load FontAwesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-o5C7d2r1Q3s6N3yjS1evcH/XOPlLqL+q8E9E9r+1pT2wEBf5PZ4YrU4XHkP6gjr3P8mzYVY3uP1v1JqG6VdQ3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<!-- Your existing CSS -->
-<link rel="stylesheet" href="content/style.css">
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div id="container">
     <div id="topbar">
         <a href="#" onclick="action('stop')" class="button"><span>STOP</span></a>
@@ -21,32 +22,32 @@
 
     <div class="alarm">
         <input type="checkbox" class="editing_alarm_chk" id="alarm1">
-        <label for="alarm1" class="editing_alarm">Morning Alarm</label>
+        <label for="alarm1" class="editing_alarm chk_active">Morning Alarm</label>
         <span class="alarm_icons"></span>
     </div>
 
-    <!-- Add more alarms here as needed -->
+    <!-- Add more alarms here -->
 </div>
 
 <a href="#" class="button_add"><span>+</span></a>
 
 <script>
-    // Show current time
-    function updateTime() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        document.getElementById('current_time').textContent = timeString;
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
+// Update current time
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    document.getElementById('current_time').textContent = timeString;
+}
+setInterval(updateTime, 1000);
+updateTime();
 
-    // Extra info for testing
-    document.getElementById('extra_info').textContent = "No active alarms";
+// Extra info
+document.getElementById('extra_info').textContent = "No active alarms";
 
-    // Placeholder function for stop button
-    function action(cmd) {
-        alert("Command: " + cmd);
-    }
+// Placeholder STOP function
+function action(cmd) { alert("Command: " + cmd); }
 </script>
+
 </body>
 </html>
+
